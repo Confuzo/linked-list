@@ -7,7 +7,7 @@
 /**
  *
  * @author confuzo (Abraão Dantas)
- * @author A linked list implementation similar to java.util.LinkedList  
+ * @author A linked list implementation similar to java.util.LinkedList
  */
 public class List<T> {
 
@@ -31,12 +31,14 @@ public class List<T> {
 
     }
 
-    public class Iterator<T>{
+    /*public class Iterator<T> {
 
         private Node current;
+        private int size_ite;
 
         public Iterator() {
             current = null;
+            size_ite = size;
         }
 
         public Iterator(Node n) {
@@ -51,7 +53,7 @@ public class List<T> {
             return current;
         }
 
-    }
+    }*/
     private Node head;
     private Node tail;
     private int size;
@@ -59,7 +61,8 @@ public class List<T> {
     public List() {
         head = new Node(null, null, null);
         tail = new Node(null, head, null);
-        head.next = tail;;
+        head.next = tail;
+        size = 0;
     }
 
     public void push_back(T data) {
@@ -74,11 +77,60 @@ public class List<T> {
         }
     }
 
-    public void printall() {
-        Node tmp = head;
-        while(tmp != tail){
-            System.out.println(tmp.data);
-            tmp = tmp.next;
+    public void push_front(T data) {
+        if (size == 0) {
+            head.data = data;
+            size++;
+        } else {
+            Node tmp = new Node(data, null, head);
+            head.prev = tmp;
+            head = tmp;
+            size++;
+        }
+    }
+    
+    public void pop_front(){
+        if(size > 0){
+            head = head.next;
+            size--;
+        }
+    }
+    public void pop_back(){
+        if(size > 0){
+            tail.prev = tail.prev.prev;
+            size--;
+        }
+    }
+    
+    public int size(){
+        return size;
+    }
+    
+    public boolean empty(){
+        return size == 0;
+    }
+    
+    public void clear(){
+        size = 0;
+        head = null;
+        tail = null;
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public Node front(){
+        return head;
+    }
+    
+    public Node back(){
+        return tail.prev;
+    }
+    
+    public void printall(){
+        Node temp = head;
+        for(int i=0; i< size; i++){
+            System.out.println(temp.data);
+            temp = temp.next;
         }
     }
 
